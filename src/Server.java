@@ -1,4 +1,5 @@
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
@@ -11,7 +12,7 @@ import java.util.Scanner;
  */
 public class Server {
     public static void main(String[] args){
-        int port = 1234;
+        int port = 8000;
         boolean run = true;
         ServerSocket serverSocket;
         Socket socket;
@@ -24,20 +25,28 @@ public class Server {
                 socket = serverSocket.accept();
                 // Go
                 PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-                ListenerThread in = new ListenerThread(new BufferedReader(new InputStreamReader(socket.getInputStream())));
-                Thread listener = new Thread(in);
-                listener.start();
+                BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+
+                //ListenerThread in =
+                //        new ListenerThread(new BufferedReader(new InputStreamReader(socket.getInputStream())));
+                //Thread listener = new Thread(in);
+                //listener.start();
                 System.out.println("Client connected!");
                 Scanner tgb = new Scanner(System.in);
                 //Protocol
                 while (run) {
-                    String msg = tgb.nextLine();
-                    out.println("SERVER: " + msg);
+                    out.println("SERVER: Welcome! \n What's your name?");
+                    String msg = in.readLine();
+                    if (msg.equals("quit")) {
+                        run = false;
+                    } else {
+                        System.out.println(msg);
+                    }
                 }
                 out.close();
                 socket.close();
             }
-        } catch (Exception e) {
+        } catch (IOException e) {
             System.out.println("Server fail");
         }
     }
