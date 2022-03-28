@@ -34,6 +34,8 @@ public class Client {
             // )));
             //Thread listener = new Thread(in);
             //listener.start();
+            boolean assigedUsername = false;
+            String username = "NO USER";
             boolean run = true;
             while (run) {
                 String msg = in.readLine();
@@ -44,8 +46,12 @@ public class Client {
                 if (msg.equals("quit")) {
                     run = false;
                     out.println(msg);
-                } else {
-                    out.println("Client: " + msg);
+                } else if (!assigedUsername){
+                    username = msg;
+                    assigedUsername = true;
+                }
+                else {
+                    out.println(username + ": " + msg);
                 }
             }
 

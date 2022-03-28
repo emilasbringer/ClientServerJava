@@ -4,6 +4,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -35,12 +36,12 @@ public class Server {
                 Scanner tgb = new Scanner(System.in);
                 //Protocol
                 while (run) {
-                    out.println("SERVER: Welcome! \n What's your name?");
+                    out.println("SERVER: Welcome user! \n What's your name?");
                     String msg = in.readLine();
                     if (msg.equals("quit")) {
                         run = false;
                     } else {
-                        System.out.println(msg);
+                        out.println(msg);
                     }
                 }
                 out.close();
